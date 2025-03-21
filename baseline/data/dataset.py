@@ -8,7 +8,7 @@ import os
 from torchvision.datasets.folder import IMG_EXTENSIONS
 
 def get_transform():
-    transform_list = [transforms.Resize([256, 256]), transforms.ToTensor()]
+    transform_list = [transforms.Resize([256, 256]), transforms.ToTensor()] # 只能设定为256，SAM也是256. 同时1024分辨率过高，效果只会更差
     return transforms.Compose(transform_list)
 
 def is_image_file(filename): return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
@@ -53,9 +53,9 @@ class AlignedDataset(data.Dataset):
         # segmentation gt
         gt_path = self.gt_paths[index]
         gt_image = Image.open(gt_path).convert('L')
-        gt_image = transform(gt_image)
+        gt_tensor = transform(gt_image)
 
-        input_dict = {'layout': layout_tensor, 'sem': sem_tensor, 'gt': gt_image.float(), 'path': layout_path}
+        input_dict = {'layout': layout_tensor, 'sem': sem_tensor, 'gt': gt_tensor, 'path': layout_path}
         return input_dict
 
     def __len__(self):
