@@ -2,3 +2,5 @@ dataset/
 checkpoint/
 segment-anything/
 .idea/
+
+./groundtruth
