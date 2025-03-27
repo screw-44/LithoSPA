@@ -1,16 +1,14 @@
-import cv2
-from torch.utils.data import DataLoader
-from dataset import FinetuneDataset
-from segment_anything import sam_model_registry
-from segment_anything.utils.transforms import ResizeLongestSide
-from tqdm import tqdm, trange
 import monai
 import torch
 import torch.nn as nn
 import torch.optim as optim
 
-import numpy as np
+from torch.utils.data import DataLoader
+from segment_anything import sam_model_registry
+from segment_anything.utils.transforms import ResizeLongestSide
+from tqdm import tqdm, trange
 
+from LithoSeg.dataset import FinetuneDataset
 
 from utils import visualize_tensor
 

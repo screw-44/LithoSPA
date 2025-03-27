@@ -24,7 +24,7 @@ def calculate_iou(mask1, mask2):
     return intersection / union if union != 0 else 0
 
 
-def extract_cd_values(layout, iou_threshold=0.75, direction=1):
+def assess_cd(layout, iou_threshold=0.75, direction=1):
     """
     提取 CD 值并计算相关统计量。
     """
@@ -107,7 +107,7 @@ def process_images(image_folder, output_folder):
 
     for image_file in image_files:
         layout = cv2.imread(os.path.join(image_folder, image_file), cv2.IMREAD_GRAYSCALE)
-        show_image, cd_values, cd_max_min_diffs, cd_fit_diffs, cd_variances, cd_average_abs_fit_diffs = extract_cd_values(
+        show_image, cd_values, cd_max_min_diffs, cd_fit_diffs, cd_variances, cd_average_abs_fit_diffs = assess_cd(
             layout)
         cv2.imwrite(os.path.join(output_folder, image_file), show_image)
 
@@ -150,7 +150,7 @@ def process_images(image_folder, output_folder):
 
 
 if __name__ == '__main__':
-    image_folder = 'seg_3_epoch3/seg_3_epoch3'
-    output_folder = 'self_evaluation_cd'
+    image_folder = '../dataset/seg_3_epoch3/'
+    output_folder = '../experiment/litho_ass/self_evaluation_cd'
     all_cd_values = process_images(image_folder, output_folder)
     print("All CD values processed.")

@@ -35,7 +35,7 @@ def calculate_iou(mask1, mask2):
     return intersection / union if union != 0 else 0
 
 
-def measure_cd_values(layout, iou_threshold=0.75, direction=1):
+def assess_edgepoint(layout, iou_threshold=0.75, direction=1):
     x_list = []
     cd_values = []
     all_first_point_diffs = []
@@ -207,7 +207,7 @@ def process_images(image_folder, output_folder):
     for image_file in image_files:
         image_path = os.path.join(image_folder, image_file)
         layout = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
-        results = measure_cd_values(layout)
+        results = assess_edgepoint(layout)
         x_list, show_image, cd_values, first_point_diffs, last_point_diffs, first_point_fit_diffs, last_point_fit_diffs, first_point_fit_mean_diffs, last_point_fit_mean_diffs, contour_square_diffs_first_list, contour_square_diffs_last_list, contour_square_diff_means_list = results
         all_diffs.append((image_file, first_point_diffs, last_point_diffs))
         all_first_point_fit_diffs_list.append(first_point_fit_diffs)
